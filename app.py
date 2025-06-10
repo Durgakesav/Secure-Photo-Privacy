@@ -339,8 +339,7 @@ def delete_image(image_id):
 
         return jsonify({"message": "Image deleted successfully"}), 200
 
-# Update Image Privacy Route
-# Update Image Privacy Route
+
 @app.route('/update_privacy/<int:image_id>', methods=['POST'])
 @login_required
 def update_privacy(image_id):
