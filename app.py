@@ -14,7 +14,7 @@ from flask_limiter.util import get_remote_address
 import secrets
 from datetime import timedelta
 
-# Initialize Flask app
+# Initialize Flask app app by kesav
 app = create_app()
 
 # Security headers and CSP
