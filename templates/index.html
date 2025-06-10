@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Privacy Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Hacker Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --neon-green: #00ff9c;
+            --hover-green: #00e67e;
+            --background-opacity: rgba(0, 0, 0, 0.75);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            background: url("{{ url_for('static', filename='backgrounds/background.jpeg') }}") no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .header h1 {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+            font-size: 3em;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            margin-top: 120px;
+            background-color: var(--background-opacity);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px var(--neon-green);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        h2 {
+            color: var(--neon-green);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px var(--neon-green);
+            font-size: 2em;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .links a:hover {
+            background-color: var(--neon-green);
+            color: black;
+            box-shadow: 0 0 15px var(--hover-green);
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 25px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 20px;
+            z-index: 2;
+            color: var(--neon-green);
+            font-size: 0.9em;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .footer a {
+            color: var(--neon-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Photo Privacy Portal</h1>
+    </div>
+    <div class="container">
+        <h2>Welcome to Secure Photo Privacy</h2>
+        <div class="links">
+            <a href="{{ url_for('signup') }}">🔐 Sign Up</a>
+            <a href="{{ url_for('login') }}">🔑 Login</a>
+            <a href="{{ url_for('public_gallery') }}">🌐 Public Gallery</a>
+        </div>
+    </div>
+    <div class="footer">
+        <p>© 2025 Photo Privacy Portal | Secure Your Digital Memories</p>
+        <p>Built for privacy and security</p>
+    </div>
+</body>
+</html>

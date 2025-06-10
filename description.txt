@@ -1,0 +1,73 @@
+PhotoPrivacy - Secure Image Management System
+============================================
+
+Welcome to PhotoPrivacy, your secure image management solution! This application provides a comprehensive set of features to protect and manage your photos with advanced security measures.
+
+Key Features:
+------------
+
+1. User Authentication
+   - Secure signup and login system
+   - Face recognition for enhanced security
+   - Password protection with strength indicators
+
+2. Image Management
+   - Upload and store your images securely
+   - Organize images in your personal gallery
+   - Set privacy levels for each image (public/private)
+   - Delete images when no longer needed
+
+3. Advanced Image Protection
+   - Face verification for accessing private images
+   - Steganography to hide secret messages within images
+   - Encrypted message storage within images
+   - Secure message extraction
+
+4. Image Enhancement
+   - Apply various filters to your images:
+     * Grayscale conversion
+     * Sepia tone
+     * Negative effect
+     * Blur effect
+     * Edge detection
+     * Brightness and contrast adjustment
+   - Preview filters before applying
+   - Download filtered images
+
+5. Public Gallery
+   - Browse publicly shared images
+   - View images shared by other users
+   - Access to community-shared content
+
+Security Features:
+----------------
+- Face recognition for secure authentication
+- Encrypted message storage
+- Secure file handling
+- Protected image access
+- Privacy controls for each image
+
+How to Use:
+----------
+1. Create an account using your email and password
+2. Register your face for secure authentication
+3. Upload your images
+4. Choose privacy settings for each image
+5. Apply filters or hide messages in your images
+6. Access your private gallery or browse public images
+7. Download or share your processed images
+
+System Requirements:
+------------------
+- Modern web browser
+- Camera for face registration
+- Internet connection
+- JavaScript enabled
+
+Support:
+-------
+For any assistance or queries, please contact our support team.
+
+Note: This application prioritizes your privacy and security. All images and messages are protected with advanced encryption and authentication methods.
+
+© 2025 PhotoPrivacy. All rights reserved. 

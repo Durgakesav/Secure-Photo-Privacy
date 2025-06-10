@@ -1,0 +1,37 @@
+Datasets Used in PhotoPrivacy Project
+=====================================
+
+1. Face Recognition Dataset
+-------------------------
+- Purpose: Training and testing the face recognition system
+- Components:
+  * Haar Cascade Classifier dataset (in haarcascades/ directory)
+  * Used for face detection and recognition
+  * Pre-trained model for facial feature detection
+
+2. Image Processing Dataset
+-------------------------
+- Purpose: Testing and validation of image processing functions
+- Types of Images:
+  * Test images for steganography operations
+  * Sample images for privacy protection testing
+  * Various image formats supported (JPEG, PNG)
+
+3. System Testing Dataset
+-------------------------
+- Purpose: Performance and efficiency measurements
+- Metrics Collection:
+  * Face detection accuracy testing
+  * Steganography embedding/extraction testing
+  * System performance benchmarking
+  * Confusion matrix generation data
+
+4. Database Storage
+-------------------------
+- SQLite database for:
+  * User information storage
+  * Image metadata
+  * Processing history
+  * Privacy settings
+
+Note: The actual image datasets are not included in the repository for privacy reasons. Users should provide their own test images for processing. The system is designed to work with standard image formats (JPEG, PNG) and can process both single faces and multiple faces in images. 

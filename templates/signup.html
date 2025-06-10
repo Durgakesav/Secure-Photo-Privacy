@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup - PhotoPrivacy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --primary-hover: #3a5bef;
+            --secondary-color: #6c8eff;
+            --accent-color: #e8ecff;
+            --bg-color: #f5f7ff;
+            --error-color: #ff4d4d;
+            --success-color: #4CAF50;
+            --text-color: #2d2d2d;
+            --text-light: #666666;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('/static/images/circuit-pattern.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .signup-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(74, 107, 255, 0.1);
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease forwards;
+            backdrop-filter: blur(10px);
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .signup-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.2em;
+            font-weight: 600;
+        }
+
+        .signup-header p {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 1.1em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.8);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.1);
+            background-color: white;
+        }
+
+        .face-registration {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            border: 2px dashed var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .face-registration:hover {
+            border-color: var(--primary-color);
+            background-color: white;
+        }
+
+        .face-registration h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .file-input-container {
+            position: relative;
+            width: 100%;
+            margin: 8px 0;
+        }
+        
+        .file-input-label {
+            display: block;
+            padding: 25px;
+            border: 2px dashed var(--accent-color);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .file-input-label:hover {
+            border-color: var(--primary-color);
+            background-color: var(--accent-color);
+        }
+        
+        .file-input-label input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .face-preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .face-preview {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+            display: none;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(74, 107, 255, 0.1);
+        }
+
+        .face-preview:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
+        }
+
+        .face-quality-indicator {
+            width: 100%;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .face-quality-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--error-color), var(--success-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .face-tips {
+            background-color: rgba(232, 236, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        .face-tips h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .face-tips ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .face-tips li {
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+
+        .face-feedback {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: var(--text-color);
+            display: none;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .face-feedback.success {
+            color: var(--success-color);
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+
+        .face-feedback.error {
+            color: var(--error-color);
+            background-color: rgba(255, 77, 77, 0.1);
+        }
+        
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 107, 255, 0.2);
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .button-text {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .links a:hover {
+            color: var(--primary-hover);
+        }
+        
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+        
+        .flash-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+        
+        .danger {
+            background-color: rgba(255, 77, 77, 0.1);
+            color: var(--error-color);
+            border: 1px solid rgba(255, 77, 77, 0.2);
+        }
+
+        .password-strength {
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .password-feedback {
+            font-size: 0.85em;
+            margin-top: 5px;
+            color: var(--text-light);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .signup-container {
+                padding: 20px;
+            }
+            
+            .face-preview {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            color: var(--text-light);
+        }
+
+        .input-with-icon {
+            padding-right: 40px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <h2>Create Your Account</h2>
+            <p>Join PhotoPrivacy to protect your images with advanced security</p>
+        </div>
+        
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <form id="signupForm" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Choose a username" required class="input-with-icon">
+                <span class="input-icon">👤</span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required class="input-with-icon">
+                <span class="input-icon">✉️</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required class="input-with-icon">
+                <span class="input-icon">🔒</span>
+                <div class="password-strength">
+                    <div class="password-strength-bar"></div>
+                </div>
+                <div class="password-feedback"></div>
+            </div>
+
+            <div class="face-registration">
+                <h3>Face Registration</h3>
+                <p style="text-align: center; color: var(--text-light); margin-bottom: 15px;">
+                    Upload a clear photo of your face for secure authentication
+                </p>
+                
+                <div class="file-input-container">
+                    <label for="faceImage" class="file-input-label">
+                        <span id="fileName">Upload your face image...</span>
+                        <input type="file" id="faceImage" name="face_image" accept="image/*" required>
+                    </label>
+                </div>
+                
+                <div class="face-preview-container">
+                    <img id="facePreview" class="face-preview" alt="Face Preview">
+                    <div class="face-quality-indicator">
+                        <div class="face-quality-bar"></div>
+                    </div>
+                    <div class="face-feedback"></div>
+                </div>
+
+                <div class="face-tips">
+                    <h4>Tips for Better Face Recognition:</h4>
+                    <ul>
+                        <li>Look directly at the camera</li>
+                        <li>Ensure good lighting</li>
+                        <li>Keep your face clearly visible</li>
+                        <li>Avoid wearing sunglasses or hats</li>
+                        <li>Maintain a neutral expression</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button type="submit" id="signupButton" disabled>
+                <span class="button-text">Sign Up</span>
+                <span class="spinner"></span>
+            </button>
+        </form>
+
+        <div class="links">
+            <a href="{{ url_for('login') }}">Already have an account? Login</a>
+        </div>
+    </div>
+
+    <script>
+        // Password strength checker
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.querySelector('.password-strength-bar');
+        const strengthFeedback = document.querySelector('.password-feedback');
+
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            let feedback = '';
+
+            // Check password length
+            if (password.length >= 8) strength += 1;
+            // Check for numbers
+            if (/\d/.test(password)) strength += 1;
+            // Check for lowercase
+            if (/[a-z]/.test(password)) strength += 1;
+            // Check for uppercase
+            if (/[A-Z]/.test(password)) strength += 1;
+            // Check for special characters
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+
+            // Update strength bar
+            const strengthPercentage = (strength / 5) * 100;
+            strengthBar.style.width = `${strengthPercentage}%`;
+            strengthBar.style.backgroundColor = getStrengthColor(strength);
+
+            // Update feedback
+            if (password.length === 0) {
+                feedback = '';
+            } else if (strength <= 2) {
+                feedback = 'Weak password';
+            } else if (strength <= 3) {
+                feedback = 'Medium password';
+            } else {
+                feedback = 'Strong password';
+            }
+            strengthFeedback.textContent = feedback;
+        });
+
+        function getStrengthColor(strength) {
+            if (strength <= 2) return '#ff4d4d';
+            if (strength <= 3) return '#ff9800';
+            return '#4CAF50';
+        }
+
+        // Face image handling
+        const faceImage = document.getElementById('faceImage');
+        const facePreview = document.getElementById('facePreview');
+        const qualityIndicator = document.querySelector('.face-quality-indicator');
+        const qualityBar = document.querySelector('.face-quality-bar');
+        const faceFeedback = document.querySelector('.face-feedback');
+        const signupButton = document.getElementById('signupButton');
+
+        faceImage.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const fileName = file.name;
+                document.getElementById('fileName').textContent = fileName;
+                
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    facePreview.src = event.target.result;
+                    facePreview.style.display = 'block';
+                    
+                    // Simulate face quality check
+                    checkFaceQuality(event.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function checkFaceQuality(imageData) {
+            // Show quality indicator
+            qualityIndicator.style.display = 'block';
+            faceFeedback.style.display = 'block';
+            
+            // Simulate quality check (in a real app, this would be done server-side)
+            setTimeout(() => {
+                const quality = Math.random() * 100; // Simulated quality score
+                qualityBar.style.width = `${quality}%`;
+                
+                if (quality > 40) { // Lowered threshold to 40%
+                    faceFeedback.textContent = 'Good quality face image';
+                    faceFeedback.className = 'face-feedback success';
+                    signupButton.disabled = false;
+                } else {
+                    faceFeedback.textContent = 'Please upload a clearer face image';
+                    faceFeedback.className = 'face-feedback error';
+                    signupButton.disabled = true;
+                }
+            }, 1000);
+        }
+
+        document.getElementById('signupForm').onsubmit = async function(event) {
+            event.preventDefault();
+            const signupButton = document.getElementById('signupButton');
+            const buttonText = signupButton.querySelector('.button-text');
+            const spinner = signupButton.querySelector('.spinner');
+
+            // Show loading state
+            buttonText.textContent = "Creating account...";
+            spinner.style.display = 'inline-block';
+            signupButton.disabled = true;
+
+            try {
+                let formData = new FormData(this);
+                let response = await fetch('/signup', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                let result = await response.json();
+                if (response.ok) {
+                    window.location.href = "{{ url_for('login') }}";
+                } else {
+                    alert(result.error || 'Signup failed!');
+                }
+            } catch (error) {
+                alert('Error during signup. Please try again.');
+                console.error('Signup error:', error);
+            } finally {
+                // Reset button state
+                buttonText.textContent = 'Sign Up';
+                spinner.style.display = 'none';
+                signupButton.disabled = false;
+            }
+        };
+    </script>
+</body>
+</html>
